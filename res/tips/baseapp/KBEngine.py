@@ -1,101 +1,93 @@
+import Math
+
 class Entity:
-	@property
-	def cell( self ):
-		"""
-		类型：只读 CellEntityCall
-		说明：
-		cell是用于联系cell实体的ENTITYCALL。这个属性是只读的，且如果这个base实体没有关联的cell时属性是None。
-		"""
-		pass
+	cell = None
+	"""
+	类型：只读 CellEntityCall
+	说明：
+	cell是用于联系cell实体的ENTITYCALL。这个属性是只读的，且如果这个base实体没有关联的cell时属性是None。
+	"""
 
-	@property
-	def cellData( self ) -> dict:
-		"""
-		类型：CELLDATADICT
-		说明：
-		cellData是一个字典属性。每当base实体没有创建它的cell实体时，cell实体的属性会保存在这里。
-		如果cell实体被创建，这些用到的值和cellData属性将被删除。除了cell实体在实体定义文件里指定的属性外，它还包含position,
-		direction and
-		spaceID。
-		"""
-		pass
 
-	@property
-	def className( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		实体的类名。
-		"""
-		pass
+	cellData = dict()
+	"""
+	类型：CELLDATADICT
+	说明：
+	cellData是一个字典属性。每当base实体没有创建它的cell实体时，cell实体的属性会保存在这里。
+	如果cell实体被创建，这些用到的值和cellData属性将被删除。除了cell实体在实体定义文件里指定的属性外，它还包含position,
+	direction and
+	spaceID。
+	"""
 
-	@property
-	def client( self ):
-		"""
-		类型：只读 ClientEntityCall
-		说明：
-		client是用于联系客户端的EntityCall。这个属性是只读的，且如果这个base实体没有关联的客户端时属性是None。
-		"""
-		pass
 
-	@property
-	def databaseID( self ) -> int:
-		"""
-		类型：只读 int64
-		说明：
-		databaseID是实体的永久ID(数据库id)。这个id是uint64类型且大于0，如果是0则表示该实体不是永久的。
-		"""
-		pass
+	className = str()
+	"""
+	类型：只读 string
+	说明：
+	实体的类名。
+	"""
 
-	@property
-	def databaseInterfaceName( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		databaseInterfaceName是实体持久化所在的数据库接口名称，该接口名称在kbengine_defaults->dbmgr中配置。实体必须持久化过（databaseID>0）该属性才可用，否则返回空字符串。
-		"""
-		pass
 
-	@property
-	def id( self ) -> int:
-		"""
-		类型：只读 int32
-		说明：
-		id是实体的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。
-		这个属性是只读的。
-		"""
-		pass
+	client = None
+	"""
+	类型：只读 ClientEntityCall
+	说明：
+	client是用于联系客户端的EntityCall。这个属性是只读的，且如果这个base实体没有关联的客户端时属性是None。
+	"""
 
-	@property
-	def isDestroyed( self ) -> bool:
-		"""
-		类型：bool
-		说明：
-		如果该Entity实体已经被销毁了，这个属性为True。
-		"""
-		pass
 
-	@property
-	def shouldAutoArchive( self ) -> bool:
-		"""
-		类型：True, False or KBEngine.NEXT_ONLY
-		说明：
-		这个属性决定了自动存档的策略。如果设为True，自动存档将可用，如果设为False，自动存档将不可用。
-		如果设为KBEngine.NEXT_ONLY，自动存档将在下一个预定的时间可用，
-		在下一次存档后，这个属性将置为False。
-		"""
-		pass
+	databaseID = int()
+	"""
+	类型：只读 int64
+	说明：
+	databaseID是实体的永久ID(数据库id)。这个id是uint64类型且大于0，如果是0则表示该实体不是永久的。
+	"""
 
-	@property
-	def shouldAutoBackup( self ) -> bool:
-		"""
-		类型：True, False or KBEngine.NEXT_ONLY
-		说明：
-		这个属性决定了自动备份的策略。如果设为True，自动备份将可用，如果设为False，自动备份将不可用。
-		如果设为KBEngine.NEXT_ONLY，自动备份将在下一个预定的时间可用，
-		在下一次备份后，这个属性将置为False。
-		"""
-		pass
+
+	databaseInterfaceName = str()
+	"""
+	类型：只读 string
+	说明：
+	databaseInterfaceName是实体持久化所在的数据库接口名称，该接口名称在kbengine_defaults->dbmgr中配置。实体必须持久化过（databaseID>0）该属性才可用，否则返回空字符串。
+	"""
+
+
+	id = int()
+	"""
+	类型：只读 int32
+	说明：
+	id是实体的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。
+	这个属性是只读的。
+	"""
+
+
+	isDestroyed = bool()
+	"""
+	类型：bool
+	说明：
+	如果该Entity实体已经被销毁了，这个属性为True。
+	"""
+
+
+	shouldAutoArchive = bool()
+	"""
+	类型：True, False or KBEngine.NEXT_ONLY
+	说明：
+	这个属性决定了自动存档的策略。如果设为True，自动存档将可用，如果设为False，自动存档将不可用。
+	如果设为KBEngine.NEXT_ONLY，自动存档将在下一个预定的时间可用，
+	在下一次存档后，这个属性将置为False。
+	"""
+
+
+	shouldAutoBackup = bool()
+	"""
+	类型：True, False or KBEngine.NEXT_ONLY
+	说明：
+	这个属性决定了自动备份的策略。如果设为True，自动备份将可用，如果设为False，自动备份将不可用。
+	如果设为KBEngine.NEXT_ONLY，自动备份将在下一个预定的时间可用，
+	在下一次备份后，这个属性将置为False。
+	"""
+
 
 	def addTimer( self, initialOffset, repeatOffset=0, userArg=0 ):
 		"""
@@ -444,72 +436,67 @@ class Entity:
 		"""
 		pass
 
+import Math
+
 class EntityComponent:
-	@property
-	def ownerID( self ) -> int:
-		"""
-		类型：只读 int32
-		说明：
-		ownerID是拥有者的实体ID。这个id是一个整型。
-		这个属性是只读的。
-		"""
-		pass
+	ownerID = int()
+	"""
+	类型：只读 int32
+	说明：
+	ownerID是拥有者的实体ID。这个id是一个整型。
+	这个属性是只读的。
+	"""
 
-	@property
-	def owner( self ) -> Entity:
-		"""
-		类型：只读 ENTITYCALL
-		说明：
-		owner是指明该组件的拥有者的实体对象
-		在使用时需要self.owner.xxx调用owner实体的对应方法
-		"""
-		pass
 
-	@property
-	def name( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		组件的名称。
-		"""
-		pass
+	owner = Entity()
+	"""
+	类型：只读 ENTITYCALL
+	说明：
+	owner是指明该组件的拥有者的实体对象
+	在使用时需要self.owner.xxx调用owner实体的对应方法
+	"""
 
-	@property
-	def className( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		实体的类名。
-		"""
-		pass
 
-	@property
-	def isDestroyed( self ) -> bool:
-		"""
-		类型：bool
-		说明：
-		如果该Entity实体已经被销毁了，这个属性为True。
-		"""
-		pass
+	name = str()
+	"""
+	类型：只读 string
+	说明：
+	组件的名称。
+	"""
 
-	@property
-	def cell( self ):
-		"""
-		类型：只读 CellEntityCall
-		说明：
-		cell是用于联系cell实体的ENTITYCALL
-		。这个属性是只读的，且如果这个base实体没有关联的cell时属性是None。
-		"""
-		pass
 
-	@property
-	def client( self ):
-		"""
-		类型：只读 ClientEntityCall
-		说明：
-		client是用于联系客户端的EntityCall。这个属性是只读的，且如果这个base实体没有关联的客户端时属性是None。
-		"""
-		pass
+	className = str()
+	"""
+	类型：只读 string
+	说明：
+	实体的类名。
+	"""
+
+
+	isDestroyed = bool()
+	"""
+	类型：bool
+	说明：
+	如果该Entity实体已经被销毁了，这个属性为True。
+	"""
+
+
+	cell = None
+	"""
+	类型：只读 CellEntityCall
+	说明：
+	cell是用于联系cell实体的ENTITYCALL
+	。这个属性是只读的，且如果这个base实体没有关联的cell时属性是None。
+	"""
+
+
+	client = None
+	"""
+	类型：只读 ClientEntityCall
+	说明：
+	client是用于联系客户端的EntityCall。这个属性是只读的，且如果这个base实体没有关联的客户端时属性是None。
+	"""
+
 
 	def addTimer( self, initialOffset, repeatOffset=0,
                     userArg=0 ):
@@ -570,105 +557,6 @@ class EntityComponent:
 		@ id
 
 		integer，它指定要移除的定时器id。如果参数为字符串"All"，则一次性移除所有的定时器。
-	
-
-		"""
-		pass
-
-	def writeToDB( self, callback, shouldAutoLoad,
-                    dbInterfaceName ):
-		"""
-		功能说明：
-		该函数保存这个实体的存档属性到数据库，使得以后需要的时候可以重新从数据库加载。
-		实体也可以被标记为自动加载，这样当服务启动后实体将会被重新创建。
-	
-
-		参数：
-
-		@ callback
-
-		这个可选参数是当数据库操作完成后的回调函数。
-		它有两个参数。第一个是boolean类型标志成功或失败，第二个是base实体。
-	
-
-		@ shouldAutoLoad
-
-		这个可选参数指定这个实体在服务启动的时候是否需要从数据库加载。
-		注意：服务器启动时自动加载实体，底层默认将会调用createEntityAnywhereFromDBID将实体创建到一个负载最小的baseapp上，整个过程将会在第一个启动的baseapp调用onBaseAppReady之前完成。
-		脚本层可以在个性化脚本(kbengine_defaults.xml->baseapp->entryScriptFile定义)中重新实现实体的创建方法，例如：
-		def onAutoLoadEntityCreate(entityType, dbid):
-		KBEngine.createEntityFromDBID(entityType,
-		dbid)
-	
-
-		@ dbInterfaceName
-
-		string，可选参数，指定由某个数据库接口来完成,
-		默认使用"default"接口。数据库接口由kbengine_defaults.xml->dbmgr->databaseInterfaces中定义。
-	
-
-		"""
-		pass
-
-	def fireEvent( self, eventName, *args ):
-		"""
-		功能说明：
-		该函数用于触发实体事件。
-	
-
-		参数：
-
-		@ eventName
-
-		string，要触发的事件名称。
-	
-
-		@ args
-
-		要附带的事件数据，可变参数。
-	
-
-		"""
-		pass
-
-	def registerEvent( self, eventName, callback ):
-		"""
-		功能说明：
-		该函数用于注册实体事件。
-	
-
-		参数：
-
-		@ eventName
-
-		string，要注册监听的事件名称。
-	
-
-		@ callback
-
-		当事件触发时，用于响应该事件的回调方法。
-	
-
-		"""
-		pass
-
-	def deregisterEvent( self, eventName, callback
-                ):
-		"""
-		功能说明：
-		该函数用于注销监听实体事件。
-	
-
-		参数：
-
-		@ eventName
-
-		string，要注销监听的事件名称。
-	
-
-		@ callback
-
-		要注销监听的回调方法。
 	
 
 		"""
@@ -795,64 +683,59 @@ class EntityComponent:
 		"""
 		pass
 
+import Math
+
 class Proxy:
-	@property
-	def __ACCOUNT_NAME__( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		如果proxy是帐号则可以访问__ACCOUNT_NAME__得到帐号名。
-		"""
-		pass
+	__ACCOUNT_NAME__ = str()
+	"""
+	类型：只读 string
+	说明：
+	如果proxy是帐号则可以访问__ACCOUNT_NAME__得到帐号名。
+	"""
 
-	@property
-	def __ACCOUNT_PASSWORD__( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		如果proxy是帐号则可以访问__ACCOUNT_PASSWORD__得到帐号MD5密码。
-		"""
-		pass
 
-	@property
-	def clientAddr( self ):
-		"""
-		类型：只读
-		这是一个tuple对象，包含了客户端的ip与端口。
-		"""
-		pass
+	__ACCOUNT_PASSWORD__ = str()
+	"""
+	类型：只读 string
+	说明：
+	如果proxy是帐号则可以访问__ACCOUNT_PASSWORD__得到帐号MD5密码。
+	"""
 
-	@property
-	def clientEnabled( self ) -> bool:
-		"""
-		类型：只读 bool
-		实体是否已经可用。在实体可用之前脚本不能与客户端进行通讯。
-		"""
-		pass
 
-	@property
-	def hasClient( self ) -> bool:
-		"""
-		类型：只读 bool
-		Proxy是否绑定了一个客户端连接。
-		"""
-		pass
+	clientAddr = None
+	"""
+	类型：只读
+	这是一个tuple对象，包含了客户端的ip与端口。
+	"""
 
-	@property
-	def roundTripTime( self ):
-		"""
-		类型：只读
-		在一段时间内服务器与这个Proxy绑定的客户端通讯平均往返时间。这个属性只在Linux下生效。
-		"""
-		pass
 
-	@property
-	def timeSinceHeardFromClient( self ):
-		"""
-		类型：只读
-		最后一次收到客户端数据包时到目前为止所过去的时间（秒）。
-		"""
-		pass
+	clientEnabled = bool()
+	"""
+	类型：只读 bool
+	实体是否已经可用。在实体可用之前脚本不能与客户端进行通讯。
+	"""
+
+
+	hasClient = bool()
+	"""
+	类型：只读 bool
+	Proxy是否绑定了一个客户端连接。
+	"""
+
+
+	roundTripTime = None
+	"""
+	类型：只读
+	在一段时间内服务器与这个Proxy绑定的客户端通讯平均往返时间。这个属性只在Linux下生效。
+	"""
+
+
+	timeSinceHeardFromClient = None
+	"""
+	类型：只读
+	最后一次收到客户端数据包时到目前为止所过去的时间（秒）。
+	"""
+
 
 	def disconnect( self ):
 		"""
@@ -1038,103 +921,93 @@ class Proxy:
 		"""
 		pass
 
-	@property
-	def cell( self ):
-		"""
-		类型：只读 CellEntityCall
-		说明：
-		cell是用于联系cell实体的ENTITYCALL。这个属性是只读的，且如果这个base实体没有关联的cell时属性是None。
-		"""
-		pass
+	cell = None
+	"""
+	类型：只读 CellEntityCall
+	说明：
+	cell是用于联系cell实体的ENTITYCALL。这个属性是只读的，且如果这个base实体没有关联的cell时属性是None。
+	"""
 
-	@property
-	def cellData( self ) -> dict:
-		"""
-		类型：CELLDATADICT
-		说明：
-		cellData是一个字典属性。每当base实体没有创建它的cell实体时，cell实体的属性会保存在这里。
-		如果cell实体被创建，这些用到的值和cellData属性将被删除。除了cell实体在实体定义文件里指定的属性外，它还包含position,
-		direction and
-		spaceID。
-		"""
-		pass
 
-	@property
-	def className( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		实体的类名。
-		"""
-		pass
+	cellData = dict()
+	"""
+	类型：CELLDATADICT
+	说明：
+	cellData是一个字典属性。每当base实体没有创建它的cell实体时，cell实体的属性会保存在这里。
+	如果cell实体被创建，这些用到的值和cellData属性将被删除。除了cell实体在实体定义文件里指定的属性外，它还包含position,
+	direction and
+	spaceID。
+	"""
 
-	@property
-	def client( self ):
-		"""
-		类型：只读 ClientEntityCall
-		说明：
-		client是用于联系客户端的EntityCall。这个属性是只读的，且如果这个base实体没有关联的客户端时属性是None。
-		"""
-		pass
 
-	@property
-	def databaseID( self ) -> int:
-		"""
-		类型：只读 int64
-		说明：
-		databaseID是实体的永久ID(数据库id)。这个id是uint64类型且大于0，如果是0则表示该实体不是永久的。
-		"""
-		pass
+	className = str()
+	"""
+	类型：只读 string
+	说明：
+	实体的类名。
+	"""
 
-	@property
-	def databaseInterfaceName( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		databaseInterfaceName是实体持久化所在的数据库接口名称，该接口名称在kbengine_defaults->dbmgr中配置。实体必须持久化过（databaseID>0）该属性才可用，否则返回空字符串。
-		"""
-		pass
 
-	@property
-	def id( self ) -> int:
-		"""
-		类型：只读 int32
-		说明：
-		id是实体的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。
-		这个属性是只读的。
-		"""
-		pass
+	client = None
+	"""
+	类型：只读 ClientEntityCall
+	说明：
+	client是用于联系客户端的EntityCall。这个属性是只读的，且如果这个base实体没有关联的客户端时属性是None。
+	"""
 
-	@property
-	def isDestroyed( self ) -> bool:
-		"""
-		类型：bool
-		说明：
-		如果该Entity实体已经被销毁了，这个属性为True。
-		"""
-		pass
 
-	@property
-	def shouldAutoArchive( self ) -> bool:
-		"""
-		类型：True, False or KBEngine.NEXT_ONLY
-		说明：
-		这个属性决定了自动存档的策略。如果设为True，自动存档将可用，如果设为False，自动存档将不可用。
-		如果设为KBEngine.NEXT_ONLY，自动存档将在下一个预定的时间可用，
-		在下一次存档后，这个属性将置为False。
-		"""
-		pass
+	databaseID = int()
+	"""
+	类型：只读 int64
+	说明：
+	databaseID是实体的永久ID(数据库id)。这个id是uint64类型且大于0，如果是0则表示该实体不是永久的。
+	"""
 
-	@property
-	def shouldAutoBackup( self ) -> bool:
-		"""
-		类型：True, False or KBEngine.NEXT_ONLY
-		说明：
-		这个属性决定了自动备份的策略。如果设为True，自动备份将可用，如果设为False，自动备份将不可用。
-		如果设为KBEngine.NEXT_ONLY，自动备份将在下一个预定的时间可用，
-		在下一次备份后，这个属性将置为False。
-		"""
-		pass
+
+	databaseInterfaceName = str()
+	"""
+	类型：只读 string
+	说明：
+	databaseInterfaceName是实体持久化所在的数据库接口名称，该接口名称在kbengine_defaults->dbmgr中配置。实体必须持久化过（databaseID>0）该属性才可用，否则返回空字符串。
+	"""
+
+
+	id = int()
+	"""
+	类型：只读 int32
+	说明：
+	id是实体的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。
+	这个属性是只读的。
+	"""
+
+
+	isDestroyed = bool()
+	"""
+	类型：bool
+	说明：
+	如果该Entity实体已经被销毁了，这个属性为True。
+	"""
+
+
+	shouldAutoArchive = bool()
+	"""
+	类型：True, False or KBEngine.NEXT_ONLY
+	说明：
+	这个属性决定了自动存档的策略。如果设为True，自动存档将可用，如果设为False，自动存档将不可用。
+	如果设为KBEngine.NEXT_ONLY，自动存档将在下一个预定的时间可用，
+	在下一次存档后，这个属性将置为False。
+	"""
+
+
+	shouldAutoBackup = bool()
+	"""
+	类型：True, False or KBEngine.NEXT_ONLY
+	说明：
+	这个属性决定了自动备份的策略。如果设为True，自动备份将可用，如果设为False，自动备份将不可用。
+	如果设为KBEngine.NEXT_ONLY，自动备份将在下一个预定的时间可用，
+	在下一次备份后，这个属性将置为False。
+	"""
+
 
 	def addTimer( self, initialOffset, repeatOffset=0, userArg=0 ):
 		"""
@@ -1483,165 +1356,154 @@ class Proxy:
 		"""
 		pass
 
-@property
-def LOG_ON_ACCEPT( ):
-	"""
-	类型：
-	说明：
-	这个常量由Proxy.onLogOnAttempt返回，意指允许新的client与一个Proxy实体绑定。
-	如果Proxy实体已经存在一个client绑定关系，那么将踢出之前的client。
-	"""
-	pass
+import Math
 
-@property
-def LOG_ON_REJECT( ):
-	"""
-	类型：
-	说明：
-	这个常量由Proxy.onLogOnAttempt返回，意指拒绝当前client与Proxy实体绑定。
-	"""
-	pass
+LOG_ON_ACCEPT = None
+"""
+类型：
+说明：
+这个常量由Proxy.onLogOnAttempt返回，意指允许新的client与一个Proxy实体绑定。
+如果Proxy实体已经存在一个client绑定关系，那么将踢出之前的client。
+"""
 
-@property
-def LOG_ON_WAIT_FOR_DESTROY( ):
-	"""
-	类型：
-	说明：
-	这个常量由Proxy.onLogOnAttempt返回，当前请求client将会等待直到Proxy实体完全销毁，底层再完成后续绑定过程。
-	在这返回之前Proxy.destroy或者Proxy.destroyCellEntity
-	应该被调用。
-	"""
-	pass
 
-@property
-def LOG_TYPE_DBG( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为调试类型。
-	由scriptLogType设置。
-	"""
-	pass
+LOG_ON_REJECT = None
+"""
+类型：
+说明：
+这个常量由Proxy.onLogOnAttempt返回，意指拒绝当前client与Proxy实体绑定。
+"""
 
-@property
-def LOG_TYPE_ERR( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为错误类型。
-	由scriptLogType设置。
-	"""
-	pass
 
-@property
-def LOG_TYPE_INFO( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为常规信息类型。
-	由scriptLogType设置。
-	"""
-	pass
+LOG_ON_WAIT_FOR_DESTROY = None
+"""
+类型：
+说明：
+这个常量由Proxy.onLogOnAttempt返回，当前请求client将会等待直到Proxy实体完全销毁，底层再完成后续绑定过程。
+在这返回之前Proxy.destroy或者Proxy.destroyCellEntity
+应该被调用。
+"""
 
-@property
-def LOG_TYPE_NORMAL( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为常规类型。
-	由scriptLogType设置。
-	"""
-	pass
 
-@property
-def LOG_TYPE_WAR( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为警告类型。
-	由scriptLogType设置。
-	"""
-	pass
+LOG_TYPE_DBG = None
+"""
+类型：
+说明：
+日志输出类型为调试类型。
+由scriptLogType设置。
+"""
 
-@property
-def NEXT_ONLY( ):
-	"""
-	类型：
-	说明：
-	这个常量用于Entity.shouldAutoBackup和Entity.shouldAutoArchive属性。这个值意指在下一次认为可以的时候自动备份该实体，然后这个属性自动设为False（0）。
-	"""
-	pass
 
-@property
-def component( ) -> str:
-	"""
-	类型：只读 string
-	说明：
-	这是正运行在当前Python环境的组件。（至今为止）可能值有'cellapp', 'baseapp', 'client', 'dbmgr', 'bots' 和 'editor'。
-	"""
-	pass
+LOG_TYPE_ERR = None
+"""
+类型：
+说明：
+日志输出类型为错误类型。
+由scriptLogType设置。
+"""
 
-@property
-def entities( ) -> dict:
-	"""
-	类型：Entities
-	说明：
-	entities是一个字典对象，包含当前进程上所有的实体。
-	调试泄露的实体（调用过destroy却没有释放内存的实体，通常是由于被引用导致无法释放）：
-	>>> KBEngine.entities.garbages.items()
-	[(1025, Avatar object at 0x7f92431ceae8.)]
-	>>> e = _[0][1]
-	>>> import gc
-	>>> gc.get_referents(e)
-	[{'spacesIsOk': True, 'bootstrapIdx': 1}, ]
-	调试泄露的KBEngine封装的Python对象：
-	KBEngine.debugTracing
-	"""
-	pass
 
-@property
-def baseAppData( ) -> dict:
-	"""
-	类型：GlobalDataClient
-	说明：
-	这个属性包含一个类字典的对象，这个对象会在所有的BaseApps之间自动同步。
-	当字典的一个值被修改，这个修改会广播到所有的BaseApps。
-	例子：
-	KBEngine.baseAppData[ "hello" ] = "there"
-	其余BaseApps可以访问下面的：
-	print KBEngine.baseAppData[ "hello" ]
-	键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
-	当一个值被改变或被删除，一个回调函数会在所有组件被调用。
-	参看：KBEngine.onBaseAppData和KBEngine.onDelBaseAppData。
-	注意：只有顶层的值才会被广播，如果你有一个值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
-	不要进行下面的操作：
-	KBEngine.baseAppData[ "list" ] = [1, 2, 3]
-	KBEngine.baseAppData[ "list" ][1] = 7
-	这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
-	"""
-	pass
+LOG_TYPE_INFO = None
+"""
+类型：
+说明：
+日志输出类型为常规信息类型。
+由scriptLogType设置。
+"""
 
-@property
-def globalData( ) -> dict:
-	"""
-	类型：GlobalDataClient
-	说明：
-	这个属性包含一个类字典的对象，这个对象会在所有的BaseApps和CellApps之间自动同步。
-	当字典的一个值被修改，这个修改会广播到所有的BaseApps和CellApps。
-	例子：
-	KBEngine.globalData[ "hello" ] = "there"
-	其余Baseapp或者Cellapp可以访问下面的：
-	print KBEngine.globalData[ "hello" ]
-	键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
-	当一个值被改变或被删除，一个回调函数会在所有组件被调用。
-	参看：KBEngine.onGlobalData和KBEngine.onGlobalDataDel。
-	注意：只有顶层的值才会被广播，如果你有一个值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
-	不要进行下面的操作：
-	KBEngine.globalData[ "list" ] = [1, 2, 3]
-	KBEngine.globalData[ "list" ][1] = 7
-	这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
-	"""
-	pass
+
+LOG_TYPE_NORMAL = None
+"""
+类型：
+说明：
+日志输出类型为常规类型。
+由scriptLogType设置。
+"""
+
+
+LOG_TYPE_WAR = None
+"""
+类型：
+说明：
+日志输出类型为警告类型。
+由scriptLogType设置。
+"""
+
+
+NEXT_ONLY = None
+"""
+类型：
+说明：
+这个常量用于Entity.shouldAutoBackup和Entity.shouldAutoArchive属性。这个值意指在下一次认为可以的时候自动备份该实体，然后这个属性自动设为False（0）。
+"""
+
+
+component = str()
+"""
+类型：只读 string
+说明：
+这是正运行在当前Python环境的组件。（至今为止）可能值有'cellapp', 'baseapp', 'client', 'dbmgr', 'bots' 和 'editor'。
+"""
+
+
+entities = dict()
+"""
+类型：Entities
+说明：
+entities是一个字典对象，包含当前进程上所有的实体。
+调试泄露的实体（调用过destroy却没有释放内存的实体，通常是由于被引用导致无法释放）：
+>>> KBEngine.entities.garbages.items()
+[(1025, Avatar object at 0x7f92431ceae8.)]
+>>> e = _[0][1]
+>>> import gc
+>>> gc.get_referents(e)
+[{'spacesIsOk': True, 'bootstrapIdx': 1}, ]
+调试泄露的KBEngine封装的Python对象：
+KBEngine.debugTracing
+"""
+
+
+baseAppData = dict()
+"""
+类型：GlobalDataClient
+说明：
+这个属性包含一个类字典的对象，这个对象会在所有的BaseApps之间自动同步。
+当字典的一个值被修改，这个修改会广播到所有的BaseApps。
+例子：
+KBEngine.baseAppData[ "hello" ] = "there"
+其余BaseApps可以访问下面的：
+print KBEngine.baseAppData[ "hello" ]
+键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
+当一个值被改变或被删除，一个回调函数会在所有组件被调用。
+参看：KBEngine.onBaseAppData和KBEngine.onDelBaseAppData。
+注意：只有顶层的值才会被广播，如果你有一个值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
+不要进行下面的操作：
+KBEngine.baseAppData[ "list" ] = [1, 2, 3]
+KBEngine.baseAppData[ "list" ][1] = 7
+这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
+"""
+
+
+globalData = dict()
+"""
+类型：GlobalDataClient
+说明：
+这个属性包含一个类字典的对象，这个对象会在所有的BaseApps和CellApps之间自动同步。
+当字典的一个值被修改，这个修改会广播到所有的BaseApps和CellApps。
+例子：
+KBEngine.globalData[ "hello" ] = "there"
+其余Baseapp或者Cellapp可以访问下面的：
+print KBEngine.globalData[ "hello" ]
+键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
+当一个值被改变或被删除，一个回调函数会在所有组件被调用。
+参看：KBEngine.onGlobalData和KBEngine.onGlobalDataDel。
+注意：只有顶层的值才会被广播，如果你有一个值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
+不要进行下面的操作：
+KBEngine.globalData[ "list" ] = [1, 2, 3]
+KBEngine.globalData[ "list" ][1] = 7
+这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
+"""
+
 
 def addWatcher( path, dataType, getFunction ):
 	"""

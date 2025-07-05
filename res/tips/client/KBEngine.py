@@ -1,36 +1,34 @@
+import Math
+
 class Entity:
-	@property
-	def className( self ) -> str:
-		"""
-		类型：只读 string
-		实体的类名。
-		"""
-		pass
+	className = str()
+	"""
+	类型：只读 string
+	实体的类名。
+	"""
 
-	@property
-	def position( self ) -> Vector3:
-		"""
-		类型：Vector3
-		这个实体在世界空间中的坐标(x, y, z)，数据由服务端同步到客户端。
-		"""
-		pass
 
-	@property
-	def direction( self ) -> tuple:
-		"""
-		类型：Tuple of 3 floats as (roll, pitch, yaw)
-		这个属性描述的是Entity在世界空间中的朝向，数据由服务端同步到客户端。
-		"""
-		pass
+	position = Math.Vector3()
+	"""
+	类型：Vector3
+	这个实体在世界空间中的坐标(x, y, z)，数据由服务端同步到客户端。
+	"""
 
-	@property
-	def isOnGround( self ) -> bool:
-		"""
-		类型：只读 bool
-		如果这个属性的值为True，Entity在地面上，否则为False。
-		如果是客户端控制的实体该属性将会在改变时同步到服务端，其他实体则由服务端同步到客户端，客户端可以判断这个值来强制贴地避免精度带来的影响。
-		"""
-		pass
+
+	direction = tuple()
+	"""
+	类型：Tuple of 3 floats as (roll, pitch, yaw)
+	这个属性描述的是Entity在世界空间中的朝向，数据由服务端同步到客户端。
+	"""
+
+
+	isOnGround = bool()
+	"""
+	类型：只读 bool
+	如果这个属性的值为True，Entity在地面上，否则为False。
+	如果是客户端控制的实体该属性将会在改变时同步到服务端，其他实体则由服务端同步到客户端，客户端可以判断这个值来强制贴地避免精度带来的影响。
+	"""
+
 
 	def baseCall( self, methodName, methodArgs ):
 		"""
@@ -211,50 +209,47 @@ class Entity:
 		"""
 		pass
 
-@property
-def component( ) -> str:
-	"""
-	类型：只读 string
-	说明：
-	这是正运行在当前脚本环境的组件。（至今为止）可能值有'cellapp', 'baseapp', 'client', 'dbmgr', 'bots' 和 'editor'。
-	"""
-	pass
+import Math
 
-@property
-def entities( ) -> dict:
-	"""
-	类型：Entities
-	说明：
-	entities是一个字典对象，包含当前进程上所有的实体。
-	"""
-	pass
+component = str()
+"""
+类型：只读 string
+说明：
+这是正运行在当前脚本环境的组件。（至今为止）可能值有'cellapp', 'baseapp', 'client', 'dbmgr', 'bots' 和 'editor'。
+"""
 
-@property
-def entity_uuid( ) -> int:
-	"""
-	类型：uint64
-	说明：
-	实体的uuid，改ID与实体本次登录绑定。当使用重登陆功能时服务端会与此ID进行比对，判断合法性。
-	"""
-	pass
 
-@property
-def entity_id( ) -> int:
-	"""
-	类型：int32
-	说明：
-	当前客户端所控制的实体的ID。
-	"""
-	pass
+entities = dict()
+"""
+类型：Entities
+说明：
+entities是一个字典对象，包含当前进程上所有的实体。
+"""
 
-@property
-def spaceID( ) -> int:
-	"""
-	类型：int32
-	说明：
-	当前客户端控制的实体所在的空间ID(也可以理解为所在对应的场景、房间、副本)。
-	"""
-	pass
+
+entity_uuid = int()
+"""
+类型：uint64
+说明：
+实体的uuid，改ID与实体本次登录绑定。当使用重登陆功能时服务端会与此ID进行比对，判断合法性。
+"""
+
+
+entity_id = int()
+"""
+类型：int32
+说明：
+当前客户端所控制的实体的ID。
+"""
+
+
+spaceID = int()
+"""
+类型：int32
+说明：
+当前客户端控制的实体所在的空间ID(也可以理解为所在对应的场景、房间、副本)。
+"""
+
 
 def login( username, password  ):
 	"""

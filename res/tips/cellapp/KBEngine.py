@@ -1,178 +1,163 @@
+import Math
+
 class Entity:
-	@property
-	def allClients( self ):
-		"""
-		类型：只读 PyClient
-		通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(包括自己的客户端，绑定了客户端的实体通常为玩家)。
-		例子：
-		avatar的View范围内有玩家A和玩家B以及怪物C。
-		avatar.allClients.attack(monsterID，skillID, damage)
-		此时，玩家自己和玩家A还有玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
-		"""
-		pass
+	allClients = None
+	"""
+	类型：只读 PyClient
+	通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(包括自己的客户端，绑定了客户端的实体通常为玩家)。
+	例子：
+	avatar的View范围内有玩家A和玩家B以及怪物C。
+	avatar.allClients.attack(monsterID，skillID, damage)
+	此时，玩家自己和玩家A还有玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
+	"""
 
-	@property
-	def base( self ):
-		"""
-		类型：只读 BaseEntityCall
-		base是用于联系Entity实体的entityCall。这个属性是只读的，且如果这个实体没有关联的Entity实体时属性是None。
-		"""
-		pass
 
-	@property
-	def className( self ) -> str:
-		"""
-		类型：只读 string
-		实体的类名。
-		"""
-		pass
+	base = None
+	"""
+	类型：只读 BaseEntityCall
+	base是用于联系Entity实体的entityCall。这个属性是只读的，且如果这个实体没有关联的Entity实体时属性是None。
+	"""
 
-	@property
-	def client( self ):
-		"""
-		类型：只读 ClientEntityCall
-		client是用于联系客户端的entityCall。这个属性是只读的，且如果这个实体没有关联的客户端时属性是None。
-		"""
-		pass
 
-	@property
-	def controlledBy( self ):
-		"""
-		类型：BaseEntityCall
-		该属性如果设置为某个客户端所关联的服务端实体的BaseEntityCall，那么该实体由对应的客户端来控制移动，如果该属性为None则实体由服务端移动。
-		当客户端登陆后调用giveClientTo到该实体时，该属性会自动的设置为自己的BaseEntityCall。
-		脚本可以灵活的控制该实体由服务端控制移动或是由客户端（自己的客户端或是其他客户端）控制移动。
-		"""
-		pass
+	client = None
+	"""
+	类型：只读 ClientEntityCall
+	client是用于联系客户端的entityCall。这个属性是只读的，且如果这个实体没有关联的客户端时属性是None。
+	"""
 
-	@property
-	def direction( self ) -> tuple:
-		"""
-		类型：Tuple of 3 floats as (roll, pitch, yaw)
-		这个属性描述的是Entity在世界空间中的朝向，用户可以改变这个属性，数据会同步到客户端。
-		"""
-		pass
 
-	@property
-	def hasWitness( self ) -> bool:
-		"""
-		类型：boolean
-		这个只读属性如果为True，表示实体已经绑定了一个Witness，绑定了Witness的实体则客户端可以通过实体获得实体View范围内的信息。否则为False。
-		"""
-		pass
+	controlledBy = None
+	"""
+	类型：BaseEntityCall
+	该属性如果设置为某个客户端所关联的服务端实体的BaseEntityCall，那么该实体由对应的客户端来控制移动，如果该属性为None则实体由服务端移动。
+	当客户端登陆后调用giveClientTo到该实体时，该属性会自动的设置为自己的BaseEntityCall。
+	脚本可以灵活的控制该实体由服务端控制移动或是由客户端（自己的客户端或是其他客户端）控制移动。
+	"""
 
-	@property
-	def id( self ) -> int:
-		"""
-		类型：只读 Integer
-		id是Entity的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。 这个属性是只读的。
-		"""
-		pass
 
-	@property
-	def isDestroyed( self ) -> bool:
-		"""
-		类型：只读 bool
-		如果这个属性的值为True，Entity则已经被销毁了。
-		"""
-		pass
+	className = str()
+	"""
+	类型：只读 string
+	实体的类名。
+	"""
 
-	@property
-	def isOnGround( self ):
-		"""
-		如果这个属性的值为True，Entity在地面上，否则为False。
-		"""
-		pass
 
-	@property
-	def isWitnessed( self ) -> bool:
-		"""
-		类型：只读 bool
-		如果当前实体进入了另一个绑定了Witness的实体的View范围（也可以理解为一个实体被观察者观察到了, 这个属性值为True，否则为False。
-		参考：
-		Entity.onWitnessed
-		"""
-		pass
+	direction = tuple()
+	"""
+	类型：Tuple of 3 floats as (roll, pitch, yaw)
+	这个属性描述的是Entity在世界空间中的朝向，用户可以改变这个属性，数据会同步到客户端。
+	"""
 
-	@property
-	def layer( self ) -> int:
-		"""
-		类型：int8
-		一个space可以同时加载多个navmesh数据，不同的navmesh在不同的layer中，不同的layer可被抽象成地面、水面等等。
-		通过这个属性决定一个实体存在于哪个layer中。
-		参考：
-		KBEngine.addSpaceGeometryMapping
-		"""
-		pass
 
-	@property
-	def otherClients( self ):
-		"""
-		类型：只读 PyClient
-		通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(不包括自己的客户端，绑定了客户端的实体通常为玩家)。
-		例子：
-		avatar的View范围内有玩家A和玩家B以及怪物C。
-		avatar.otherClients.attack(monsterID，skillID, damage)
-		此时，玩家A与玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
-		"""
-		pass
+	hasWitness = bool()
+	"""
+	类型：boolean
+	这个只读属性如果为True，表示实体已经绑定了一个Witness，绑定了Witness的实体则客户端可以通过实体获得实体View范围内的信息。否则为False。
+	"""
 
-	@property
-	def position( self ) -> Vector3:
-		"""
-		类型：Vector3
-		这个实体在世界空间中的坐标(x, y, z)，这个属性可以被用户改变，改变后会同步到客户端。
-		需要注意的是，不要引用这个属性，引用这个属性很有可能错误的修改了实体的真实坐标。
-		例子：
-		self.position.y = 10.0
-		如果你想拷贝这个属性值可以使用如下方式：
-		import Math
-		self.copyPosition = Math.Vector3( self.position )
-		"""
-		pass
 
-	@property
-	def spaceID( self ) -> int:
-		"""
-		类型：只读 uint32
-		这个属性是实体所在的空间的ID，cell与客户端这个值都保持一致。
-		"""
-		pass
+	id = int()
+	"""
+	类型：只读 Integer
+	id是Entity的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。 这个属性是只读的。
+	"""
 
-	@property
-	def topSpeed( self ) -> float:
-		"""
-		类型：float
-		实体的最大xz轴移动速度（米/秒），这个属性通常要比实际移动速度要大一些，服务端通过这个属性检查客户端的移动合法性，如果移动距离超出速度限制则被强制拉回上一个坐标位置。
-		"""
-		pass
 
-	@property
-	def topSpeedY( self ) -> float:
-		"""
-		类型：float
-		实体的最大y轴移动速度（米/秒），这个属性通常要比实际移动速度要大一些，服务端通过这个属性检查客户端的移动合法性，如果移动距离超出速度限制则被强制拉回上一个坐标位置。
-		"""
-		pass
+	isDestroyed = bool()
+	"""
+	类型：只读 bool
+	如果这个属性的值为True，Entity则已经被销毁了。
+	"""
 
-	@property
-	def volatileInfo( self ) -> float:
-		"""
-		类型：float
-		这个属性指定Entity的易变类数据同步到客户端的策略。
-		易变类数据包括实体的坐标position和实体的朝向direction，易变类数据由于极易改变的特性，引擎底层使用了一套优化的方案将其同步到客户端。
-		这个属性是四个float（position，yaw，pitch，roll）代表距离值，当一个实体靠近当前实体达到距离则服务端向其同步相关数据。如果距离值大于View半径则代表总是同步。
-		还有一个特殊的bool属性optimized，它的作用是控制服务器同步时是否进行优化，目前主要的优化是Y轴。
-		如果为true，在一些行为(如：navigate)导致服务器能确定实体在地面时，服务器不同步实体的Y轴坐标，当同步大量实体时能节省大量带宽，默认为true。
-		用户也可以在.def制定不同实体的同步策略：
-		<Volatile>
-		<position/>           <!-- 总是同步 -->
-		<yaw/>                <!-- 总是同步 -->
-		<pitch>20</pitch>     <!-- 相距20米或以内同步     -->
-		<optimized> true </optimized>
-		</Volatile>               <!-- roll未指明则总是同步  -->
-		"""
-		pass
+
+	isOnGround = bool()
+	"""
+	类型：只读 bool
+	如果这个属性的值为True，Entity在地面上，否则为False。
+	"""
+
+
+	isWitnessed = bool()
+	"""
+	类型：只读 bool
+	如果当前实体进入了另一个绑定了Witness的实体的View范围（也可以理解为一个实体被观察者观察到了, 这个属性值为True，否则为False。
+	参考：
+	Entity.onWitnessed
+	"""
+
+
+	layer = int()
+	"""
+	类型：int8
+	一个space可以同时加载多个navmesh数据，不同的navmesh在不同的layer中，不同的layer可被抽象成地面、水面等等。
+	通过这个属性决定一个实体存在于哪个layer中。
+	参考：
+	KBEngine.addSpaceGeometryMapping
+	"""
+
+
+	otherClients = None
+	"""
+	类型：只读 PyClient
+	通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(不包括自己的客户端，绑定了客户端的实体通常为玩家)。
+	例子：
+	avatar的View范围内有玩家A和玩家B以及怪物C。
+	avatar.otherClients.attack(monsterID，skillID, damage)
+	此时，玩家A与玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
+	"""
+
+
+	position = Math.Vector3()
+	"""
+	类型：Vector3
+	这个实体在世界空间中的坐标(x, y, z)，这个属性可以被用户改变，改变后会同步到客户端。
+	需要注意的是，不要引用这个属性，引用这个属性很有可能错误的修改了实体的真实坐标。
+	例子：
+	self.position.y = 10.0
+	如果你想拷贝这个属性值可以使用如下方式：
+	import Math
+	self.copyPosition = Math.Vector3( self.position )
+	"""
+
+
+	spaceID = int()
+	"""
+	类型：只读 uint32
+	这个属性是实体所在的空间的ID，cell与客户端这个值都保持一致。
+	"""
+
+
+	topSpeed = float()
+	"""
+	类型：float
+	实体的最大xz轴移动速度（米/秒），这个属性通常要比实际移动速度要大一些，服务端通过这个属性检查客户端的移动合法性，如果移动距离超出速度限制则被强制拉回上一个坐标位置。
+	"""
+
+
+	topSpeedY = float()
+	"""
+	类型：float
+	实体的最大y轴移动速度（米/秒），这个属性通常要比实际移动速度要大一些，服务端通过这个属性检查客户端的移动合法性，如果移动距离超出速度限制则被强制拉回上一个坐标位置。
+	"""
+
+
+	volatileInfo = float()
+	"""
+	类型：float
+	这个属性指定Entity的易变类数据同步到客户端的策略。
+	易变类数据包括实体的坐标position和实体的朝向direction，易变类数据由于极易改变的特性，引擎底层使用了一套优化的方案将其同步到客户端。
+	这个属性是四个float（position，yaw，pitch，roll）代表距离值，当一个实体靠近当前实体达到距离则服务端向其同步相关数据。如果距离值大于View半径则代表总是同步。
+	还有一个特殊的bool属性optimized，它的作用是控制服务器同步时是否进行优化，目前主要的优化是Y轴。
+	如果为true，在一些行为(如：navigate)导致服务器能确定实体在地面时，服务器不同步实体的Y轴坐标，当同步大量实体时能节省大量带宽，默认为true。
+	用户也可以在.def制定不同实体的同步策略：
+	<Volatile>
+	<position/>           <!-- 总是同步 -->
+	<yaw/>                <!-- 总是同步 -->
+	<pitch>20</pitch>     <!-- 相距20米或以内同步     -->
+	<optimized> true </optimized>
+	</Volatile>               <!-- roll未指明则总是同步  -->
+	"""
+
 
 	def accelerate( self, accelerateType, acceleration ):
 		"""
@@ -1206,212 +1191,84 @@ class Entity:
 		"""
 		pass
 
+import Math
+
 class EntityComponent:
-	@property
-	def ownerID( self ) -> int:
-		"""
-		类型：只读 int32
-		说明：
-		ownerID是拥有者的实体ID。这个id是一个整型。
-		这个属性是只读的。
-		"""
-		pass
+	ownerID = int()
+	"""
+	类型：只读 int32
+	说明：
+	ownerID是拥有者的实体ID。这个id是一个整型。
+	这个属性是只读的。
+	"""
 
-	@property
-	def owner( self ) -> Entity:
-		"""
-		类型：只读 ENTITYCALL
-		说明：
-		owner是指明该组件的拥有者的实体对象
-		在使用时需要self.owner.xxx调用owner实体的对应方法
-		"""
-		pass
 
-	@property
-	def name( self ) -> str:
-		"""
-		类型：只读 string
-		说明：
-		组件的名称。
-		"""
-		pass
+	owner = Entity()
+	"""
+	类型：只读 ENTITYCALL
+	说明：
+	owner是指明该组件的拥有者的实体对象
+	在使用时需要self.owner.xxx调用owner实体的对应方法
+	"""
 
-	@property
-	def allClients( self ):
-		"""
-		类型：只读 PyClient
-		通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(包括自己的客户端，绑定了客户端的实体通常为玩家)。
-		例子：
-		avatar的View范围内有玩家A和玩家B以及怪物C。
-		avatar.allClients.attack(monsterID，skillID, damage)
-		此时，玩家自己和玩家A还有玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
-		"""
-		pass
 
-	@property
-	def base( self ):
-		"""
-		类型：只读 BaseEntityCall
-		base是用于联系Entity实体的entityCall。这个属性是只读的，且如果这个实体没有关联的Entity实体时属性是None。
-		"""
-		pass
+	name = str()
+	"""
+	类型：只读 string
+	说明：
+	组件的名称。
+	"""
 
-	@property
-	def className( self ) -> str:
-		"""
-		类型：只读 string
-		实体的类名。
-		"""
-		pass
 
-	@property
-	def client( self ):
-		"""
-		类型：只读 ClientEntityCall
-		client是用于联系客户端的entityCall。这个属性是只读的，且如果这个实体没有关联的客户端时属性是None。
-		"""
-		pass
+	allClients = None
+	"""
+	类型：只读 PyClient
+	通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(包括自己的客户端，绑定了客户端的实体通常为玩家)。
+	例子：
+	avatar的View范围内有玩家A和玩家B以及怪物C。
+	avatar.allClients.attack(monsterID，skillID, damage)
+	此时，玩家自己和玩家A还有玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
+	"""
 
-	@property
-	def controlledBy( self ):
-		"""
-		类型：BaseEntityCall
-		该属性如果设置为某个客户端所关联的服务端实体的BaseEntityCall，那么该实体由对应的客户端来控制移动，如果该属性为None则实体由服务端移动。
-		当客户端登陆后调用giveClientTo到该实体时，该属性会自动的设置为自己的BaseEntityCall。
-		脚本可以灵活的控制该实体由服务端控制移动或是由客户端（自己的客户端或是其他客户端）控制移动。
-		"""
-		pass
 
-	@property
-	def direction( self ) -> tuple:
-		"""
-		类型：Tuple of 3 floats as (roll, pitch, yaw)
-		这个属性描述的是Entity在世界空间中的朝向，用户可以改变这个属性，数据会同步到客户端。
-		"""
-		pass
+	base = None
+	"""
+	类型：只读 BaseEntityCall
+	base是用于联系Entity实体的entityCall。这个属性是只读的，且如果这个实体没有关联的Entity实体时属性是None。
+	"""
 
-	@property
-	def hasWitness( self ) -> bool:
-		"""
-		类型：boolean
-		这个只读属性如果为True，表示实体已经绑定了一个Witness，绑定了Witness的实体则客户端可以通过实体获得实体View范围内的信息。否则为False。
-		"""
-		pass
 
-	@property
-	def id( self ) -> int:
-		"""
-		类型：只读 Integer
-		id是Entity的对象id。这个id是一个整型，在base，cell和client相关联的实体之间是相同的。
-		这个属性是只读的。
-		"""
-		pass
+	client = None
+	"""
+	类型：只读 ClientEntityCall
+	client是用于联系客户端的entityCall。这个属性是只读的，且如果这个实体没有关联的客户端时属性是None。
+	"""
 
-	@property
-	def isDestroyed( self ) -> bool:
-		"""
-		类型：只读 bool
-		如果这个属性的值为True，Entity则已经被销毁了。
-		"""
-		pass
 
-	@property
-	def isOnGround( self ):
-		"""
-		如果这个属性的值为True，Entity在地面上，否则为False。
-		"""
-		pass
+	className = str()
+	"""
+	类型：只读 string
+	实体的类名。
+	"""
 
-	@property
-	def isWitnessed( self ) -> bool:
-		"""
-		类型：只读 bool
-		如果当前实体进入了另一个绑定了Witness的实体的View范围（也可以理解为一个实体被观察者观察到了,
-		这个属性值为True，否则为False。
-		参考：
-		Entity.onWitnessed
-		"""
-		pass
 
-	@property
-	def layer( self ) -> int:
-		"""
-		类型：int8
-		一个space可以同时加载多个navmesh数据，不同的navmesh在不同的layer中，不同的layer可被抽象成地面、水面等等。
-		通过这个属性决定一个实体存在于哪个layer中。
-		参考：
-		KBEngine.addSpaceGeometryMapping
-		"""
-		pass
+	isDestroyed = bool()
+	"""
+	类型：只读 bool
+	如果这个属性的值为True，Entity则已经被销毁了。
+	"""
 
-	@property
-	def otherClients( self ):
-		"""
-		类型：只读 PyClient
-		通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(不包括自己的客户端，绑定了客户端的实体通常为玩家)。
-		例子：
-		avatar的View范围内有玩家A和玩家B以及怪物C。
-		avatar.otherClients.attack(monsterID，skillID, damage)
-		此时，玩家A与玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
-		"""
-		pass
 
-	@property
-	def position( self ) -> Vector3:
-		"""
-		类型：Vector3
-		这个实体在世界空间中的坐标(x, y, z)，这个属性可以被用户改变，改变后会同步到客户端。
-		需要注意的是，不要引用这个属性，引用这个属性很有可能错误的修改了实体的真实坐标。
-		例子：
-		self.position.y = 10.0
-		如果你想拷贝这个属性值可以使用如下方式：
-		import Math
-		self.copyPosition = Math.Vector3( self.position )
-		"""
-		pass
+	otherClients = None
+	"""
+	类型：只读 PyClient
+	通过这个属性调用实体的客户端远程方法，引擎会将这个消息广播给实体View范围内所有的其他绑定了客户端的实体(不包括自己的客户端，绑定了客户端的实体通常为玩家)。
+	例子：
+	avatar的View范围内有玩家A和玩家B以及怪物C。
+	avatar.otherClients.attack(monsterID，skillID, damage)
+	此时，玩家A与玩家B的客户端都会调用到该实体attack方法，在他们的客户端可以调用指定技能的攻击动作做表现。
+	"""
 
-	@property
-	def spaceID( self ) -> int:
-		"""
-		类型：只读 uint32
-		这个属性是实体所在的空间的ID，cell与客户端这个值都保持一致。
-		"""
-		pass
-
-	@property
-	def topSpeed( self ) -> float:
-		"""
-		类型：float
-		实体的最大xz轴移动速度（米/秒），这个属性通常要比实际移动速度要大一些，服务端通过这个属性检查客户端的移动合法性，如果移动距离超出速度限制则被强制拉回上一个坐标位置。
-		"""
-		pass
-
-	@property
-	def topSpeedY( self ) -> float:
-		"""
-		类型：float
-		实体的最大y轴移动速度（米/秒），这个属性通常要比实际移动速度要大一些，服务端通过这个属性检查客户端的移动合法性，如果移动距离超出速度限制则被强制拉回上一个坐标位置。
-		"""
-		pass
-
-	@property
-	def volatileInfo( self ) -> float:
-		"""
-		类型：float
-		这个属性指定Entity的易变类数据同步到客户端的策略。
-		易变类数据包括实体的坐标position和实体的朝向direction，易变类数据由于极易改变的特性，引擎底层使用了一套优化的方案将其同步到客户端。
-		这个属性是四个float（position，yaw，pitch，roll）代表距离值，当一个实体靠近当前实体达到距离则服务端向其同步相关数据。如果距离值大于View半径则代表总是同步。
-		还有一个特殊的bool属性optimized，它的作用是控制服务器同步时是否进行优化，目前主要的优化是Y轴。
-		如果为true，在一些行为(如：navigate)导致服务器能确定实体在地面时，服务器不同步实体的Y轴坐标，当同步大量实体时能节省大量带宽，默认为true。
-		用户也可以在.def制定不同实体的同步策略：
-		<Volatile>
-		<position/>           <!-- 总是同步 -->
-		<yaw/>                <!-- 总是同步 -->
-		<pitch>20</pitch>     <!-- 相距20米或以内同步     -->
-		<optimized> true </optimized>
-		</Volatile>               <!-- roll未指明则总是同步  -->
-		"""
-		pass
 
 	def addTimer( self, start, interval=0.0, userData=0 ):
 		"""
@@ -1485,97 +1342,6 @@ class EntityComponent:
 		@ destID
 
 		目标实体的ID。
-	
-
-		"""
-		pass
-
-	def writeToDB( self, shouldAutoLoad, dbInterfaceName ):
-		"""
-		功能说明：
-		这个函数保存与这个实体相关的数据到数据库，包括base实体的数据。在数据确认传到数据库之前base实体的onWriteToDB函数会被调用。
-		cell实体的数据同时备份在base实体，确保遇到灾难恢复数据时数据是最新的。
-		这个函数只能在real实体且实体必须存在base部分时才允许被调用。
-	
-
-		参数：
-
-		@ shouldAutoLoad
-
-		这个可选参数指定这个实体在服务启动的时候是否需要从数据库加载。
-		注意：服务器启动时自动加载实体，底层默认将会调用createEntityAnywhereFromDBID将实体创建到一个负载最小的baseapp上，整个过程将会在第一个启动的baseapp调用onBaseAppReady之前完成。
-		脚本层可以在个性化脚本(kbengine_defaults.xml->baseapp->entryScriptFile定义)中重新实现实体的创建方法，例如：
-		def onAutoLoadEntityCreate(entityType, dbid):
-		KBEngine.createEntityFromDBID(entityType, dbid)
-	
-
-		@ dbInterfaceName
-
-		string，可选参数，指定由某个数据库接口来完成,
-		默认使用"default"接口。数据库接口由kbengine_defaults.xml->dbmgr->databaseInterfaces中定义。
-	
-
-		"""
-		pass
-
-	def fireEvent( self, eventName, *args ):
-		"""
-		功能说明：
-		该函数用于触发实体事件。
-	
-
-		参数：
-
-		@ eventName
-
-		string，要触发的事件名称。
-	
-
-		@ args
-
-		要附带的事件数据，可变参数。
-	
-
-		"""
-		pass
-
-	def registerEvent( self, eventName, callback ):
-		"""
-		功能说明：
-		该函数用于注册实体事件。
-	
-
-		参数：
-
-		@ eventName
-
-		string，要注册监听的事件名称。
-	
-
-		@ callback
-
-		当事件触发时，用于响应该事件的回调方法。
-	
-
-		"""
-		pass
-
-	def deregisterEvent( self, eventName, callback ):
-		"""
-		功能说明：
-		该函数用于注销监听实体事件。
-	
-
-		参数：
-
-		@ eventName
-
-		string，要注销监听的事件名称。
-	
-
-		@ callback
-
-		要注销监听的回调方法。
 	
 
 		"""
@@ -1922,135 +1688,127 @@ class EntityComponent:
 		"""
 		pass
 
-@property
-def LOG_TYPE_DBG( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为调试类型。
-	由scriptLogType设置。
-	"""
-	pass
+import Math
 
-@property
-def LOG_TYPE_ERR( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为错误类型。
-	由scriptLogType设置。
-	"""
-	pass
+LOG_TYPE_DBG = None
+"""
+类型：
+说明：
+日志输出类型为调试类型。
+由scriptLogType设置。
+"""
 
-@property
-def LOG_TYPE_INFO( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为常规信息类型。
-	由scriptLogType设置。
-	"""
-	pass
 
-@property
-def LOG_TYPE_NORMAL( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为常规类型。
-	由scriptLogType设置。
-	"""
-	pass
+LOG_TYPE_ERR = None
+"""
+类型：
+说明：
+日志输出类型为错误类型。
+由scriptLogType设置。
+"""
 
-@property
-def LOG_TYPE_WAR( ):
-	"""
-	类型：
-	说明：
-	日志输出类型为警告类型。
-	由scriptLogType设置。
-	"""
-	pass
 
-@property
-def NEXT_ONLY( ):
-	"""
-	类型：
-	说明：
-	这个常量目前在Cellapp未被使用。
-	"""
-	pass
+LOG_TYPE_INFO = None
+"""
+类型：
+说明：
+日志输出类型为常规信息类型。
+由scriptLogType设置。
+"""
 
-@property
-def cellAppData( ):
-	"""
-	类型：
-	说明：
-	这个属性包含一个类字典的对象，这个对象会在所有的CellApps之间自动同步。
-	当字典的一个值被修改，这个修改会广播到所有的CellApps。
-	例子：
-	KBEngine.cellAppData[ "hello" ] = "there"
-	其余CellApp可以访问下面的：
-	print KBEngine.cellAppData[ "hello" ]
-	键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
-	当一个值被改变或被删除，一个回调函数会在所有组件被调用。
-	参看：KBEngine.onCellAppData和KBEngine.onDelCellAppData。
-	注意：只有顶层的值才会被广播，如果你有一个值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
-	不要进行下面的操作：
-	KBEngine.cellAppData[ "list" ] = [1, 2, 3]
-	KBEngine.cellAppData[ "list" ][1] = 7
-	这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
-	"""
-	pass
 
-@property
-def component( ) -> str:
-	"""
-	类型：只读 string
-	说明：
-	这是正运行在当前Python环境的组件。（至今为止）可能值有'cellapp', 'baseapp', 'client', 'dbmgr', 'bots' 和 'editor'。
-	"""
-	pass
+LOG_TYPE_NORMAL = None
+"""
+类型：
+说明：
+日志输出类型为常规类型。
+由scriptLogType设置。
+"""
 
-@property
-def entities( ) -> dict:
-	"""
-	类型：Entities
-	说明：
-	entities是一个字典对象，包含当前进程上所有的实体，包括ghost实体。
-	调试泄露的实体（调用过destroy却没有释放内存的实体，通常是由于被引用导致无法释放）：
-	>>> KBEngine.entities.garbages.items()
-	[(1025, Avatar object at 0x7f92431ceae8.)]
-	>>> e = _[0][1]
-	>>> import gc
-	>>> gc.get_referents(e)
-	[{'spacesIsOk': True, 'bootstrapIdx': 1}, class 'Avatar.Avatar'>]
-	调试泄露的KBEngine封装的Python对象：
-	KBEngine.debugTracing
-	"""
-	pass
 
-@property
-def globalData( ) -> dict:
-	"""
-	类型：GlobalDataClient
-	说明：
-	这个属性包含一个类字典的对象，这个对象会在所有的BaseApps和CellApps之间自动复制。
-	当字典的一个值被修改，这个修改会广播到所有的BaseApps和CellApps。CellAppMgr解决竞争条件，保证信息复制的权威性。
-	例子：
-	KBEngine.globalData[ "hello" ] = "there"
-	其余Cellapp或者Baseapp可以访问下面的：
-	print KBEngine.globalData[ "hello" ]
-	键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
-	当一个值被改变或被删除，一个回调函数会在所有组件被调用。
-	参看：KBEngine.onGlobalData和KBEngine.onGlobalDataDel。
-	注意：只有顶层的值才会被广播，如果你有一个易变的值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
-	不要进行下面的操作：
-	KBEngine.globalData[ "list" ] = [1, 2, 3]
-	KBEngine.globalData[ "list" ][1] = 7
-	这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
-	"""
-	pass
+LOG_TYPE_WAR = None
+"""
+类型：
+说明：
+日志输出类型为警告类型。
+由scriptLogType设置。
+"""
+
+
+NEXT_ONLY = None
+"""
+类型：
+说明：
+这个常量目前在Cellapp未被使用。
+"""
+
+
+cellAppData = None
+"""
+类型：
+说明：
+这个属性包含一个类字典的对象，这个对象会在所有的CellApps之间自动同步。
+当字典的一个值被修改，这个修改会广播到所有的CellApps。
+例子：
+KBEngine.cellAppData[ "hello" ] = "there"
+其余CellApp可以访问下面的：
+print KBEngine.cellAppData[ "hello" ]
+键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
+当一个值被改变或被删除，一个回调函数会在所有组件被调用。
+参看：KBEngine.onCellAppData和KBEngine.onDelCellAppData。
+注意：只有顶层的值才会被广播，如果你有一个值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
+不要进行下面的操作：
+KBEngine.cellAppData[ "list" ] = [1, 2, 3]
+KBEngine.cellAppData[ "list" ][1] = 7
+这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
+"""
+
+
+component = str()
+"""
+类型：只读 string
+说明：
+这是正运行在当前Python环境的组件。（至今为止）可能值有'cellapp', 'baseapp', 'client', 'dbmgr', 'bots' 和 'editor'。
+"""
+
+
+entities = dict()
+"""
+类型：Entities
+说明：
+entities是一个字典对象，包含当前进程上所有的实体，包括ghost实体。
+调试泄露的实体（调用过destroy却没有释放内存的实体，通常是由于被引用导致无法释放）：
+>>> KBEngine.entities.garbages.items()
+[(1025, Avatar object at 0x7f92431ceae8.)]
+>>> e = _[0][1]
+>>> import gc
+>>> gc.get_referents(e)
+[{'spacesIsOk': True, 'bootstrapIdx': 1}, class 'Avatar.Avatar'>]
+调试泄露的KBEngine封装的Python对象：
+KBEngine.debugTracing
+"""
+
+
+globalData = dict()
+"""
+类型：GlobalDataClient
+说明：
+这个属性包含一个类字典的对象，这个对象会在所有的BaseApps和CellApps之间自动复制。
+当字典的一个值被修改，这个修改会广播到所有的BaseApps和CellApps。CellAppMgr解决竞争条件，保证信息复制的权威性。
+例子：
+KBEngine.globalData[ "hello" ] = "there"
+其余Cellapp或者Baseapp可以访问下面的：
+print KBEngine.globalData[ "hello" ]
+键和值可以是任意类型，但这些类型必须在所有目标组件上能够被封装和被拆封。
+当一个值被改变或被删除，一个回调函数会在所有组件被调用。
+参看：KBEngine.onGlobalData和KBEngine.onGlobalDataDel。
+注意：只有顶层的值才会被广播，如果你有一个易变的值（比如一个列表），它改变了内部的值（比如只是改变一个数），这个信息不会被广播。
+不要进行下面的操作：
+KBEngine.globalData[ "list" ] = [1, 2, 3]
+KBEngine.globalData[ "list" ][1] = 7
+这样，本地访问是[1, 7, 3]，远程访问是[1, 2, 3]。
+"""
+
 
 def addSpaceGeometryMapping( spaceID, mapper, path, shouldLoadOnServer, params ):
 	"""

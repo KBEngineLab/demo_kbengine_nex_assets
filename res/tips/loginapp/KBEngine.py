@@ -1,3 +1,5 @@
+import Math
+
 def addTimer( initialOffset, repeatOffset=0, callbackObj=None ):
 	"""
 	功能说明：

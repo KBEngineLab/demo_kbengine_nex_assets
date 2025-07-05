@@ -59,7 +59,7 @@
 		
 		<databaseInterfaces>
 			<default>
-				 <host> 198.19.249.3 </host>
+				 <host> 127.0.0.1 </host>
 				 <databaseName> kbe </databaseName>
 
 				<auth>
