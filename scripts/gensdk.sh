@@ -31,5 +31,7 @@ echo KBE_RES_PATH = \"${KBE_RES_PATH}\"
 echo KBE_BIN_PATH = \"${KBE_BIN_PATH}\"
 echo KBE_VENV_PATH = \"${KBE_VENV_PATH}\"
 
-"$KBE_BIN_PATH/kbcmd" --clientsdk=unity --outpath="$currPath/kbengine_unity3d_plugins"
+"$KBE_BIN_PATH/kbcmd" --clientsdk=csharp --outpath="$currPath/kbengine_csharp_plugins"
 "$KBE_BIN_PATH/kbcmd" --clientsdk=ue4 --outpath="$currPath/kbengine_ue4_plugins"
+"$KBE_BIN_PATH/kbcmd" --clientsdk=ue5 --outpath="$currPath/kbengine_ue5_plugins"
+"$KBE_BIN_PATH/kbcmd" --clientsdk=typescript --outpath="$currPath/kbengine_typescript_plugins"
