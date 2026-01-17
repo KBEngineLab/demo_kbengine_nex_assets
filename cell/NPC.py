@@ -3,6 +3,8 @@ import random
 import math
 import time
 import KBEngine
+
+import KBEDebug
 from KBEDebug import *
 from interfaces.NPCObject import NPCObject
 from interfaces.Motion import Motion
@@ -18,6 +20,7 @@ class NPC(KBEngine.Entity, NPCObject, Motion):
 		virtual method.
 		"""
 		return True
+
 
 	#--------------------------------------------------------------------------------------------
 	#                              Callbacks

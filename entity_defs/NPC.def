@@ -3,6 +3,7 @@
 		<position/>
 		<yaw/>
 		<!--<pitch> 20 </pitch>-->
+		<optimized> false </optimized>
 	</Volatile>
 
 	<Interfaces>

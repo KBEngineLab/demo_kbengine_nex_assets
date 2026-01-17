@@ -28,7 +28,7 @@ class Motion:
 		"""
 		if self.isMoving:
 			return False
-			
+
 		if time.time() < self.nextMoveTime:
 			return False
 		
@@ -36,7 +36,6 @@ class Motion:
 			# 移动半径距离在30米内
 			if self.canNavigate():
 				destPos = self.getRandomPoints(basePos, 30.0, 1, 0)
-				
 				if len(destPos) == 0:
 					self.nextMoveTime = int(time.time() + random.randint(5, 15))
 					return False
@@ -50,7 +49,6 @@ class Motion:
 				z = a * math.sin( b )
 				
 				destPos = (basePos.x + x, basePos.y, basePos.z + z)
-
 			if self.position.distTo(destPos) < 2.0:
 				continue
 				
@@ -110,7 +108,7 @@ class Motion:
 		speed = self.moveSpeed * 0.1
 		
 		if self.canNavigate():
-			self.navigate(Math.Vector3(position), speed, dist, speed, 512.0, 1, 0, None)
+			self.navigateToDetour(Math.Vector3(position), speed, dist, speed, 512.0, 1, 0, None)
 		else:
 			if dist > 0.0:
 				destPos = Math.Vector3(position) - self.position
@@ -147,8 +145,8 @@ class Motion:
 		KBEngine method.
 		使用引擎的任何移动相关接口， 在entity一次移动完成时均会调用此接口
 		"""
-		#DEBUG_MSG("%s::onMove: %i controllerId =%i, userarg=%s" % \
-		#				(self.getScriptName(), self.id, controllerId, userarg))
+		# DEBUG_MSG("%s::onMove: %i controllerId =%i, userarg=%s" % \
+		# 				(self.getScriptName(), self.id, controllerId, userarg))
 		self.isMoving = True
 		
 	def onMoveFailure(self, controllerId, userarg):

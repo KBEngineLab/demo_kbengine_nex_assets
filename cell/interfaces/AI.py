@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import KBEngine
+
+import KBEDebug
 import SCDefine
 import time
 import random
@@ -295,6 +297,6 @@ class AI:
 		KBEngine method.
 		引擎回调timer触发
 		"""
-		#DEBUG_MSG("%s::onTimer: %i, tid:%i, arg:%i" % (self.getScriptName(), self.id, tid, userArg))
+		# DEBUG_MSG("%s::onTimer: %i, tid:%i, arg:%i" % (self.getScriptName(), self.id, tid, userArg))
 		if SCDefine.TIMER_TYPE_HEARDBEAT == userArg:
 			self.onHeardTimer()

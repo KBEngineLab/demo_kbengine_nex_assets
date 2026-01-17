@@ -10,6 +10,7 @@ GC_SKILL_ENTITY_DEAD				= 0x002		# Entity已经死亡
 
 # 不同demo所对应的地图
 g_demoMaps = {
+	b'kbengine_all_demo' : 8,
 	b'kbengine_ue4_demo' : 7,
 	b'kbengine_cocos2d_js_demo' : 6,
 	b'kbengine_unity3d_demo' : 3,

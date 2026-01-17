@@ -57,6 +57,8 @@ class Gate(KBEngine.Entity, GameObject):
 		else:					 # teleport to xxspace
 			if entityEntering.spaceUType == 3:
 				gotoSpaceUType = 4
+			elif entityEntering.spaceUType == 8:
+				gotoSpaceUType = 8
 			else:
 				gotoSpaceUType = 3
 			

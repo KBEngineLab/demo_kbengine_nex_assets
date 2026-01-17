@@ -2,7 +2,7 @@
 import sys
 import KBEngine
 
-“”“
+"""
 // 获得2个圆相交百分比，已知圆A半径为r1，圆B半径为r2，两圆圆心距离为d，返回两圆相交部分面积与圆A面积的占比
 inline double CalcCircularIntersectPercentage(double r1, double r2, double d)
 {
@@ -41,7 +41,7 @@ inline double CalcCircularIntersectPercentage(double r1, double r2, double d)
 	double result = (sec1 + sec2 - sq) / s1;
 	return result;
 }
-“”“
+"""
 
 class Sector( Area ):
 	def __init__( self, parent ):
