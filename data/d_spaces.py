@@ -9,7 +9,7 @@ datas={
 	# 6: {'entityType': 'Space', 'name': 'kbengine_cocos2d_js_demo', 'type': 1, 'resPath': 'spaces/kbengine_cocos2d_js_demo', 'spawnPos': (108.0, 0.0, 90.0), 'id': 6},
 	# 7: {'entityType': 'Space', 'name': 'kbengine_ue4_demo', 'type': 1, 'resPath': 'spaces/kbengine_ue4_demo', 'spawnPos': (-97.9299, 1.5, -158.922), 'id': 7},
 	8: {'entityType': 'Space', 'name': 'kbengine_all_demo', 'type': 1, 'resPath': 'spaces/kbengine_all_demo',
-		'spawnPos': (-150.32186888302837, 0.5, 59.54435263001156), 'id': 8}
+		'spawnPos': (-150.32186888302837, 1, 59.54435263001156), 'id': 8}
 }
 
 allDatas = {
